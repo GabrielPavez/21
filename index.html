@@ -2,9 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta viewport optimizado para móviles (evita el zoom táctil para sentirse como una app) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>¡Para Dani! - Flores Amarillas</title>
+    <title>Para mi niña hermosa</title>
     
     <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,16 +15,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Evita resaltados azules al tocar en móviles */
             -webkit-tap-highlight-color: transparent; 
         }
 
         body {
-            /* Degradado animado premium */
             background: linear-gradient(135deg, #a1c4fd, #c2e9fb, #fbc2eb, #ffe2e2);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            /* 100dvh es clave para móviles: adapta el alto ignorando la barra de direcciones de Safari/Chrome */
             min-height: 100dvh; 
             overflow: hidden;
             display: flex;
@@ -50,39 +46,42 @@
             pointer-events: none;
         }
 
-        /* Tarjeta de cristal adaptada para pantallas estrechas (iPhone) */
-        .glass-card {
-            position: relative;
+        /* --- CONTROL DE PANTALLAS --- */
+        .screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease-in-out, visibility 1s;
             z-index: 2;
+        }
+        
+        .screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* --- PANTALLA 1: TARJETA --- */
+        .glass-card {
             background: rgba(255, 255, 255, 0.25); 
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 40px;
-            /* Padding fluido: más pequeño en móviles, más grande en escritorio */
             padding: clamp(25px, 5vh, 40px) clamp(15px, 4vw, 30px);
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), inset 0 0 30px rgba(255, 255, 255, 0.5);
             width: 90%;
-            max-width: 420px; /* Ancho ideal para un iPhone Max/Pro */
+            max-width: 420px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             animation: popIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, floatCard 6s ease-in-out infinite alternate;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 40px;
-            border: 1.5px solid transparent;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0)) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: destination-out;
-            mask-composite: exclude;
-            pointer-events: none;
         }
 
         .images-container {
@@ -105,55 +104,96 @@
             filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
         }
 
-        /* Tipografía fluida usando 'clamp' para auto-ajustarse al iPhone */
-        .dani-name {
+        .girl-name {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(3rem, 12vw, 4.2rem);
+            font-size: clamp(2.8rem, 11vw, 4rem);
             color: #ff3366;
             text-shadow: 0 0 15px rgba(255, 51, 102, 0.6), 2px 2px 0px #fff;
-            transform: rotate(-5deg);
+            transform: rotate(-3deg);
             margin-bottom: 5px;
             animation: pulseName 2.5s infinite alternate;
+            line-height: 1;
         }
 
         h1 {
             font-family: 'Bangers', cursive;
-            font-size: clamp(2.4rem, 9vw, 3.5rem);
+            font-size: clamp(2.1rem, 7.5vw, 3rem);
             color: #FFD700;
             -webkit-text-stroke: 1.5px #2d3748;
             text-shadow: 3px 3px 0px #2d3748, 0 0 15px rgba(255, 215, 0, 0.5);
             margin-bottom: 10px;
+            margin-top: 5px;
             line-height: 1.1;
             letter-spacing: 1px;
         }
 
-        p {
-            font-family: 'Pacifico', cursive;
-            font-size: clamp(1.1rem, 4.5vw, 1.4rem);
-            color: #2d3748;
-            line-height: 1.3;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 3px rgba(255,255,255,1);
-            padding: 0 10px;
-            position: relative;
+        .action-btn {
+            margin-top: 25px;
+            padding: 15px 30px;
+            font-family: 'Chewy', cursive;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
+            color: #fff;
+            background: linear-gradient(45deg, #ff3366, #ff7a99);
+            border: 2px solid #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4), inset 0 -4px 0 rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: pulseButton 2s infinite;
+        }
+        
+        .action-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 5px 10px rgba(255, 51, 102, 0.4), inset 0 -1px 0 rgba(0,0,0,0.2);
         }
 
-        p::before, p::after {
-            content: '✨';
-            font-size: clamp(0.9rem, 3vw, 1.2rem);
+        /* --- PANTALLA 2: CORAZÓN DE FLORES --- */
+        .final-message {
             position: absolute;
-            opacity: 0.8;
-            color: #ffb300;
+            top: 10%;
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(3.5rem, 14vw, 5.5rem);
+            color: #ff3366;
+            text-shadow: 0 0 25px rgba(255, 51, 102, 0.9), 3px 3px 0px #fff;
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: center;
+            width: 100%;
+            z-index: 10;
         }
-        p::before { top: -10px; left: -5px; }
-        p::after { bottom: -10px; right: -5px; }
 
-        /* Contenedor del girasol escalado para móviles */
-        .sunflower-wrapper {
-            transform: scale(0.85); /* Lo hace un poco más pequeño para que quepa perfecto en vertical */
-            margin-top: -10px;
+        .final-message.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: heartbeatFinal 2s infinite alternate 1.5s;
         }
 
+        /* Contenedor central del corazón */
+        #flower-heart {
+            position: relative;
+            width: 0;
+            height: 0;
+            top: 10%; /* Ajuste vertical */
+            /* La animación de latido se añade vía JS cuando termina de dibujarse */
+        }
+
+        .heartbeat-active {
+            animation: pulseHeartShape 2s infinite alternate;
+        }
+
+        /* Cada flor individual dentro del corazón */
+        .heart-flower {
+            position: absolute;
+            margin-left: -70px; /* Centrar respecto a los 140px del girasol */
+            margin-top: -70px;
+            transform: scale(0);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Componentes del Girasol */
         .sunflower-container {
             position: relative;
             width: 140px;
@@ -166,112 +206,169 @@
 
         .sunflower-center {
             position: absolute;
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: radial-gradient(circle, #5c3a21 30%, #291506 90%);
             border-radius: 50%;
             z-index: 10;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.6), 0 0 25px rgba(255, 215, 0, 0.4);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.9), 0 0 15px rgba(255, 215, 0, 0.5);
             background-image: radial-gradient(#3a210f 15%, transparent 16%), radial-gradient(#3a210f 15%, transparent 16%);
-            background-size: 10px 10px;
-            background-position: 0 0, 5px 5px;
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
         }
 
         .petal {
             position: absolute;
-            width: 26px;
-            height: 85px;
+            width: 22px;
+            height: 75px;
             background: linear-gradient(180deg, #FFEA00 0%, #FF9D00 100%);
             border-radius: 50% 50% 20% 20%;
             transform-origin: bottom center;
-            top: -20px;
-            box-shadow: 0 0 6px rgba(255, 165, 0, 0.4);
+            top: -10px;
+            box-shadow: 0 0 5px rgba(255, 165, 0, 0.4);
             border: 1px solid rgba(255, 140, 0, 0.3);
-            transition: all 0.3s ease;
         }
 
-        /* --- Animaciones Keyframes --- */
+        /* --- KEYFRAMES --- */
         @keyframes floatCard {
             0% { transform: translateY(0px); }
             100% { transform: translateY(-8px); }
         }
-
         @keyframes floatSnoopy {
             0%, 100% { transform: translate(-50%, 0) rotate(0deg); }
             50% { transform: translate(-50%, -15px) rotate(3deg); }
         }
-
         @keyframes popIn {
             0% { opacity: 0; transform: scale(0.8) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         @keyframes spinSlowly {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(1); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
         @keyframes pulseName {
-            0% { transform: rotate(-5deg) scale(1); }
-            100% { transform: rotate(-4deg) scale(1.05); text-shadow: 0 0 20px rgba(255, 51, 102, 0.9), 2px 2px 0px #fff; }
+            0% { transform: rotate(-3deg) scale(1); }
+            100% { transform: rotate(-1deg) scale(1.05); text-shadow: 0 0 20px rgba(255, 51, 102, 0.9), 2px 2px 0px #fff; }
         }
-
+        @keyframes pulseButton {
+            0%, 100% { transform: scale(1); box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4), inset 0 -4px 0 rgba(0,0,0,0.2); }
+            50% { transform: scale(1.03); box-shadow: 0 15px 25px rgba(255, 51, 102, 0.6), inset 0 -4px 0 rgba(0,0,0,0.2); }
+        }
+        @keyframes heartbeatFinal {
+            0% { transform: scale(1); text-shadow: 0 0 25px rgba(255, 51, 102, 0.9), 3px 3px 0px #fff; }
+            100% { transform: scale(1.08); text-shadow: 0 0 40px rgba(255, 51, 102, 1), 3px 3px 0px #fff; }
+        }
+        @keyframes pulseHeartShape {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Capa del fondo animado (Pétalos y Corazones) -->
+    <!-- Lluvia de partículas globales (Fondo) -->
     <canvas id="petalsCanvas"></canvas>
 
-    <!-- Tarjeta de contenido -->
-    <div class="glass-card">
-        
-        <div class="images-container">
-            <!-- Snoopy abrazando el corazón -->
-            <img src="./img/Snoopy-PNG.png" alt="Snoopy con corazón" class="snoopy-img">
-        </div>
-
-        <!-- Dedicatoria especial -->
-        <div class="dani-name">Para mi hermosa Dani</div>
-        
-        <h1>¡Feliz día de las flores!</h1>
-        <p>T AMO DEMASIADO MI VIDA CASATE CONMIGO HOY MISMO</p>
-
-        <!-- Girasol envuelto para control de escala en móviles -->
-        <div class="sunflower-wrapper">
-            <div class="sunflower-container" id="sunflower-container">
-                <div class="sunflower-center"></div>
-                <!-- Los pétalos se agregarán vía JS -->
+    <!-- === PANTALLA 1: Inicio === -->
+    <div id="screen-1" class="screen">
+        <div class="glass-card">
+            <div class="images-container">
+                <img src="./img/Snoopy-PNG.png" alt="Snoopy con corazón" class="snoopy-img">
             </div>
+
+            <div class="girl-name">para mi niña hermosa</div>
+            <h1>¡Feliz día de las flores amarillas!</h1>
+            
+            <button id="btn-grow" class="action-btn">mira tus flores amarillas</button>
         </div>
+    </div>
+
+    <!-- === PANTALLA 2: Corazón de Flores === -->
+    <div id="screen-2" class="screen hidden">
+        <h2 id="final-text" class="final-message">Te amo demasiado</h2>
         
+        <!-- Aquí se inyectarán los girasoles mediante matemáticas en JS -->
+        <div id="flower-heart"></div>
     </div>
 
     <script>
-        // --- 1. Generación del Girasol en CSS ---
-        const sunflowerContainer = document.getElementById('sunflower-container');
-        const numPetals = 20; 
-        
-        for (let i = 0; i < numPetals; i++) {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
-            const angle = (360 / numPetals) * i;
-            petal.style.transform = `rotate(${angle}deg)`;
-            sunflowerContainer.appendChild(petal);
+        // --- 1. GENERADOR DE CORAZÓN DE FLORES ---
+        const heartContainer = document.getElementById('flower-heart');
+        const numFlowers = 36; // Cantidad de girasoles que forman el corazón
+        const flowersArray = [];
+
+        // Ecuación paramétrica para dibujar un corazón
+        for (let i = 0; i < numFlowers; i++) {
+            const t = (i / numFlowers) * Math.PI * 2;
+            
+            // Escala dependiendo de si es móvil o PC
+            const scale = window.innerWidth < 450 ? 8.5 : 11; 
+            
+            // Fórmulas matemáticas para la forma de corazón
+            const x = scale * (16 * Math.pow(Math.sin(t), 3));
+            const y = -scale * (13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+
+            // Crear el contenedor de la flor
+            const flowerWrapper = document.createElement('div');
+            flowerWrapper.className = 'heart-flower';
+            flowerWrapper.style.left = `${x}px`;
+            flowerWrapper.style.top = `${y}px`;
+
+            // Construir el girasol (Centro + Pétalos)
+            const head = document.createElement('div');
+            head.className = 'sunflower-container';
+            
+            const center = document.createElement('div');
+            center.className = 'sunflower-center';
+            head.appendChild(center);
+
+            for (let p = 0; p < 16; p++) { // 16 pétalos por mini-flor
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.transform = `rotate(${(360/16)*p}deg)`;
+                head.appendChild(petal);
+            }
+
+            flowerWrapper.appendChild(head);
+            heartContainer.appendChild(flowerWrapper);
+            flowersArray.push(flowerWrapper);
         }
 
-        // --- 2. Sistema de Partículas Canvas (Lluvia de Pétalos y Corazones Amarillos) ---
+
+        // --- 2. SISTEMA DE TRANSICIÓN Y BOTÓN ---
+        document.getElementById('btn-grow').addEventListener('click', () => {
+            document.getElementById('screen-1').classList.add('hidden');
+            document.getElementById('screen-2').classList.remove('hidden');
+
+            // Aparecer las flores secuencialmente dibujando el corazón
+            flowersArray.forEach((flower, index) => {
+                setTimeout(() => {
+                    // El transform final aplica la escala correcta para el tamaño de las flores
+                    flower.style.transform = window.innerWidth < 450 ? 'scale(0.35)' : 'scale(0.45)';
+                }, 300 + (index * 70)); // Retraso en milisegundos por flor
+            });
+
+            // Una vez dibujado el corazón, activar el latido global y el texto
+            const totalDrawTime = 300 + (numFlowers * 70);
+            setTimeout(() => {
+                heartContainer.classList.add('heartbeat-active');
+                document.getElementById('final-text').classList.add('show');
+                
+                // Explosión extra de corazones
+                for (let i = 0; i < 40; i++) {
+                    particlesArray.push(new Heart());
+                }
+            }, totalDrawTime + 400);
+        });
+
+
+        // --- 3. SISTEMA DE PARTÍCULAS CANVAS (Lluvia) ---
         const canvas = document.getElementById('petalsCanvas');
         const ctx = canvas.getContext('2d');
         
         let cw, ch;
         const particlesArray = [];
         
-        // Reducimos un poco la cantidad de partículas para ahorrar batería en móviles y evitar sobrecarga visual
-        const maxPetals = 45; 
-        const maxHearts = 15; 
-
         function resizeCanvas() {
             cw = canvas.width = window.innerWidth;
             ch = canvas.height = window.innerHeight;
@@ -289,42 +386,34 @@
                 this.speedX = Math.random() * 2 - 1; 
                 this.angle = Math.random() * 360;
                 this.spin = Math.random() * 0.04 - 0.02; 
-                
                 const colors = ['#FFD700', '#FFC107', '#FFEB3B', '#FBC02D', '#FFB300'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
-
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.angle);
-                
                 ctx.beginPath();
                 ctx.fillStyle = this.color;
                 ctx.shadowBlur = 4;
                 ctx.shadowColor = this.color;
-                
                 ctx.moveTo(0, 0);
                 ctx.bezierCurveTo(this.w / 2, this.h / 3, this.w / 2, (2 * this.h) / 3, 0, this.h);
                 ctx.bezierCurveTo(-this.w / 2, (2 * this.h) / 3, -this.w / 2, this.h / 3, 0, 0);
-                
                 ctx.fill();
                 ctx.closePath();
                 ctx.restore();
             }
-
             update() {
                 this.y += this.speedY;
                 this.x += Math.sin(this.angle) * 1.2 + this.speedX; 
                 this.angle += this.spin;
-                
                 if (this.y > ch + this.h) {
                     this.y = -this.h;
                     this.x = Math.random() * cw;
                 }
                 if (this.x > cw + this.w) this.x = -this.w;
                 else if (this.x < -this.w) this.x = cw + this.w;
-
                 this.draw();
             }
         }
@@ -334,24 +423,22 @@
                 this.x = Math.random() * cw;
                 this.y = Math.random() * ch + ch; 
                 this.size = Math.random() * 8 + 6; 
-                this.speedY = -(Math.random() * 1 + 0.5); 
-                this.speedX = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.3; 
+                this.speedY = -(Math.random() * 1.5 + 1); 
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.opacity = Math.random() * 0.6 + 0.4; 
                 const colors = ['rgba(255, 215, 0,', 'rgba(255, 235, 59,', 'rgba(255, 193, 7,'];
                 this.baseColor = colors[Math.floor(Math.random() * colors.length)];
                 this.pulse = Math.random() * Math.PI;
             }
-
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 const scale = 1 + Math.sin(this.pulse) * 0.15;
                 ctx.scale(scale, scale);
-                
                 ctx.beginPath();
                 ctx.fillStyle = `${this.baseColor}${this.opacity})`;
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = `${this.baseColor}0.6)`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = `${this.baseColor}0.8)`;
                 
                 ctx.moveTo(0, 0);
                 ctx.bezierCurveTo(0, -3, -5, -15, -15, -15);
@@ -362,17 +449,14 @@
                 ctx.bezierCurveTo(5, -15, 0, -3, 0, 0);
                 
                 ctx.scale(this.size/30, this.size/30);
-                
                 ctx.fill();
                 ctx.closePath();
                 ctx.restore();
             }
-
             update() {
                 this.y += this.speedY;
-                this.x += Math.sin(this.y * 0.015) * 0.6 + this.speedX; 
+                this.x += Math.sin(this.y * 0.015) * 0.8 + this.speedX; 
                 this.pulse += 0.06;
-                
                 if (this.y < -50) {
                     this.y = ch + 50;
                     this.x = Math.random() * cw;
@@ -382,8 +466,8 @@
         }
 
         function initParticles() {
-            for (let i = 0; i < maxPetals; i++) particlesArray.push(new Petal());
-            for (let i = 0; i < maxHearts; i++) particlesArray.push(new Heart());
+            for (let i = 0; i < 35; i++) particlesArray.push(new Petal()); 
+            for (let i = 0; i < 15; i++) particlesArray.push(new Heart()); 
         }
 
         function animateParticles() {
